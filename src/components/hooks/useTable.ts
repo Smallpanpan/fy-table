@@ -1,17 +1,17 @@
 import type { TableProps,ColumnType } from "../table/types";
 import { Ref, computed, ComputedRef } from "vue";
 
-export function useTable(props: TableProps, current: Ref<number>,item:Ref<ColumnType>) {
+export function useTable(props: TableProps, current: Ref<number>,columnItem:Ref<ColumnType>) {
   let renderList: ComputedRef<any[]> = computed(() => {
-    let dataList = props.dataSource.slice(
+    let dataList = props.data.slice(
       (current.value - 1) * props.pageSize,
       current.value * props.pageSize
     );
-    if(item.value?.sort === 'reversal'){
-      return dataList.sort(uncompare(item.value.key));
+    if(columnItem.value?.sort === 'reversal'){
+      return dataList.sort(uncompare(columnItem.value.key));
     }
-    if(item.value?.sort === 'ordinal'){
-      return dataList.sort(compare(item.value.key));
+    if(columnItem.value?.sort === 'ordinal'){
+      return dataList.sort(compare(columnItem.value.key));
     }
     return dataList
   });

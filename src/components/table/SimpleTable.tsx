@@ -15,40 +15,41 @@ export default defineComponent({
     TableHead
   },
   setup(props: TableProps) {
-    let { dataSource, pageSize } = props
+    let { data, pageSize } = props
     let { current, onPageChange } = usePagination()
-    let item = ref({
+    // 排序响应后触发的列
+    let columnItem = ref({
       key:'',
       title:''
     })
     let tableData = {
       current,
       props,
-      item,
+      columnItem,
     }
-    let sort = (items:ColumnType)=>{
-      item.value = items;
+    let updateSortItem = (items:ColumnType)=>{
+      columnItem.value = items;
     }
     // 提供给body使用
     provide(TABLE_PROPS, tableData)
     return () => {
 
       return (
-        <>
+        <div>
           <table class="is-bordered is-hoverable is-fullwidth table">
             <TableHead 
               columns={props.columns} 
-              onSort={(val) => sort(val)}
+              onUpdateSortItem={(val) => updateSortItem(val)}
             ></TableHead>
             <TableBody></TableBody>
           </table>
           <Pagination
-            total={dataSource.length}
+            total={data.length}
             current={current.value}
             pageSize={pageSize}
             onChange={(val) => onPageChange(val)}
           ></Pagination>
-        </>
+        </div>
       );
     };
   },

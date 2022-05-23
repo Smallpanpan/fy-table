@@ -41,7 +41,7 @@ export const tableBodyCellProps = {
 
 // table props
 export const tableProps = {
-  dataSource: {
+  data: {
     type: Array as PropType<any[]>,
     default: () => [],
   },

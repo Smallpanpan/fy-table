@@ -6,13 +6,13 @@ import TableHeadCell from "./TableHeadCell";
 export default defineComponent({
     name: "TableHead",
     props: tableHeadProps,
-    emits: ["sort"],
+    emits: ["updateSortItem"],
     setup(props: TableHeadProps,{emit}) {
         //排序需要重新在hook引入
-        let sort = (item: ColumnType)=>{
+        let updateSortItem = (item: ColumnType)=>{
             INFO({msg:'点击触发'});
             item.sort = item.sort === 'reversal' ? 'ordinal': 'reversal';
-            emit('sort',item);
+            emit('updateSortItem',item);
         }
         //清除排序
         let clearSort = () =>{
@@ -24,24 +24,22 @@ export default defineComponent({
                 title:'',
                 sort:'disorder'
             }
-            sort(item);
+            updateSortItem(item);
         }
 
         return () => {
             return (
-                <>
-                    <thead>
-                        <tr>
-                            {props.columns.map((item) => {
-                                return (
-                                    <TableHeadCell 
-                                    column={item}
-                                    onSortChange={(val)=>sort(val)}/>
-                                );
-                            })}
-                        </tr>
-                    </thead>
-                </>
+                <thead>
+                    <tr>
+                        {props.columns.map((item) => {
+                            return (
+                                <TableHeadCell 
+                                column={item}
+                                onUpdateSortItem={(val)=>updateSortItem(val)}/>
+                            );
+                        })}
+                    </tr>
+                </thead>
             );
         }
     },

@@ -5,12 +5,12 @@ import { TRACE } from "../../util/logger"
 export default defineComponent({
     name: "TableHead",
     props: tableHeadCellProps,
-    emits: ["sortChange"],
+    emits: ["updateSortItem"],
     setup(props,{emit}) {
         // 排序触发
-        let sortChange =  (item:ColumnType) => {
+        let updateSortItem =  (item:ColumnType) => {
             TRACE({msg: '点击排序触发',event:'click'});
-            emit('sortChange',item);
+            emit('updateSortItem',item);
         }
         return () => {
             return (
@@ -21,7 +21,7 @@ export default defineComponent({
                         </span>
                         <span class={classnames("iconfont","icon-shangjiantou", {
                               "icon-xiajiantou": props.column.sort === 'reversal'})}
-                              onClick={() => sortChange(props.column)}
+                              onClick={() => updateSortItem(props.column)}
                               v-show={props.column?.isSort}></span>
                     </div>
                 </td>

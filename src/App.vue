@@ -1,13 +1,13 @@
 <template>
-  <Table :dataSource="dataSource" 
+  <fy-table :data="data" 
          :columns="columns"
          @sortChange="sortChange">
-  </Table>
+  </fy-table>
 </template>
 
 <script lang="ts">
 import { ref, Ref } from "vue";
-import Table from "./components/table/index";
+import FyTable from "./components/table/index";
 interface TableSource {
   key: number;
   mark: number;
@@ -18,12 +18,12 @@ interface TableSource {
 }
 export default {
   components: {
-    Table,
+    FyTable,
   },
   setup() {
-    let dataSource: Ref<TableSource[]> = ref([]);
+    let data: Ref<TableSource[]> = ref([]);
     for (let index = 0; index < 100; index++) {
-      dataSource.value.push({
+      data.value.push({
         key: index,
         name: `panqinghua ${index}`,
         age: Math.round(Math.random()*60+10),
@@ -64,7 +64,7 @@ export default {
         info("触发排序事件");
     }
     return {
-      dataSource,
+      data,
       columns,
       sortChange,
     };
