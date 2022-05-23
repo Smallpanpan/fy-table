@@ -2,9 +2,6 @@
   <Table :dataSource="dataSource" 
          :columns="columns"
          @sortChange="sortChange">
-      <template slot="achievement">
-        及格
-      </template>
   </Table>
 </template>
 
@@ -18,7 +15,6 @@ interface TableSource {
   age: number;
   major: string;
   sex: string;
-  tags: string[];
 }
 export default {
   components: {
@@ -26,15 +22,14 @@ export default {
   },
   setup() {
     let dataSource: Ref<TableSource[]> = ref([]);
-    for (let index = 0; index < 150; index++) {
+    for (let index = 0; index < 100; index++) {
       dataSource.value.push({
         key: index,
-        name: `Edrward ${index}`,
+        name: `panqinghua ${index}`,
         age: Math.round(Math.random()*60+10),
         mark: Math.round(Math.random()*100+50),
         major: Math.round(Math.random()) ? '计算机':'体育',
-        sex: Math.round(Math.random()) ? '男':'女',
-        tags: ["nice", "developer"],
+        sex: Math.round(Math.random()) ? '男':'女'
       });
     }
 

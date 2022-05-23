@@ -1,4 +1,4 @@
-import { defineComponent, inject, watch } from "vue";
+import { defineComponent, inject } from "vue";
 import { TABLE_PROPS } from "./const"
 import { useTable } from "../hooks/useTable"
 import { TRACE } from "../../util/logger"

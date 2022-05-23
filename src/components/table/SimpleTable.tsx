@@ -1,4 +1,4 @@
-import { defineComponent, provide,ref,reactive } from "vue";
+import { defineComponent, provide,ref } from "vue";
 import { type TableProps, tableProps,ColumnType } from "./types";
 import TableHead from "./TableHead"
 import TableBody from "./TableBody";
