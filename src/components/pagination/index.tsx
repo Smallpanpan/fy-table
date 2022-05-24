@@ -1,6 +1,7 @@
-import { defineComponent, ref, Ref } from "vue";
-import type { PaginationTypes } from "./types";
+import { defineComponent, ref, Ref, PropType,computed } from "vue";
+import type { paginationData } from "./types";
 import classnames from "classnames";
+import { TRACE, INFO } from "../../util/logger"
 
 export default defineComponent({
   name: "Pagination",
@@ -17,96 +18,110 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
+    // 分页按钮配置
+    paginationConfig: {
+      type: Object as PropType<paginationData>,
+      default:() => ({
+        maxBtnNum: 8,  //展示最多页码
+        recentBtnNum: 6, //除了首位页，展示最近6个页面，动态改变
+      })
+    } 
   },
   emits: ["change"],
-  setup(props: PaginationTypes, { emit }) {
+  setup(props, { emit }) {
     let jumpPage: Ref<string | number> = ref("");
-    let handleClick = (pageNumber: number, pageCount: number) => {
-      if (pageNumber > pageCount || pageNumber < 1) {
+    // 总页数
+    let pageCount = computed(()=>{
+      return Math.ceil(props.total / props.pageSize);
+    })
+    // 页码显示配置
+    let isShowBtn = (index: number) => {
+      let {maxBtnNum, recentBtnNum} = props.paginationConfig;
+      let  firstPage = 1; //开始页
+      let currentPage = recentBtnNum - 2; //最近两页index
+      let midPage = Math.floor(recentBtnNum/2)
+      // 少于8页 按钮全部展示
+      if (pageCount.value < maxBtnNum) {
+        return true;
+      } else {
+        // 显示首页和最后一页按钮
+        if (index === firstPage || index === pageCount.value) {
+          return true;
+        } else {
+          // 动态计算只展示最近n页 与首尾位页
+          if (props.current < currentPage && index < recentBtnNum) {  //只展示前n位
+            return true;
+          } else if (props.current > pageCount.value - currentPage && index > pageCount.value - recentBtnNum) {    //只展示后n位
+            return true;
+          } else if (index < props.current + midPage && index > props.current - midPage) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+    };
+
+    // 是否显示省略号
+    let isShowEllipsis = (index: number) => {
+      return index === 2 || index === pageCount.value - 1;
+    };
+    let handleClick = (pageNumber: number) => {
+      INFO({msg: `页面修改:${pageNumber}`,event:'click', module:'pagination'});
+      if (pageNumber > pageCount.value || pageNumber < 1) {
         return;
       }
       emit("change", pageNumber);
     };
 
-    let onInputChange = (event: Event) => {
-      (event.target as HTMLInputElement).value = (
-        event.target as HTMLInputElement
+    // 页面输入校验
+    let onInputChange = (inputEvent: Event) => {
+      TRACE({msg: `页码输入:${inputEvent}`,event:'input'});
+      (inputEvent.target as HTMLInputElement).value = (
+        inputEvent.target as HTMLInputElement
       ).value.replace(/[^0-9]/g, "");
-      if ((event.target as HTMLInputElement).value !== "") {
-        jumpPage.value = Number((event.target as HTMLInputElement).value);
+      if ((inputEvent.target as HTMLInputElement).value !== "") {
+        jumpPage.value = Number((inputEvent.target as HTMLInputElement).value);
       } else {
         jumpPage.value = "";
       }
     };
 
     return () => {
-      // 总页数
-      const pageCount = Math.ceil(props.total / props.pageSize);
-      const indexes: number[] = new Array(pageCount);
-      for (let i = 0; i < pageCount; i++) {
-        indexes[i] = i + 1;
-      }
-
-      // 页码是否被省略
-      let isShowBtn = (index: number) => {
-        if (pageCount < 8) {
-          return true;
-        } else {
-          if (index === 1 || index === pageCount) {
-            return true;
-          } else {
-            if (props.current < 4 && index < 6) {
-              return true;
-            } else if (props.current > pageCount - 4 && index > pageCount - 6) {
-              return true;
-            } else if (index < props.current + 3 && index > props.current - 3) {
-              return true;
-            } else {
-              return false;
-            }
-          }
-        }
-      };
-
-      // 是否显示省略号
-      let isShowEllipsis = (index: number) => {
-        return index === 2 || index === pageCount - 1;
-      };
-
       return (
-        <>
           <div class="pagination is-centered">
             <a
               class={classnames("pagination-previous", {
                 "pagination-button-disabled": props.current === 1,
               })}
-              onClick={() => handleClick(props.current - 1, pageCount)}
+              onClick={() => handleClick(props.current - 1)}
             >
               上一页
             </a>
             <a
               class={classnames("pagination-next", {
-                "pagination-button-disabled": props.current === pageCount,
+                "pagination-button-disabled": props.current === pageCount.value,
               })}
-              onClick={() => handleClick(props.current + 1, pageCount)}
+              onClick={() => handleClick(props.current + 1)}
             >
               下一页
             </a>
             <div class="pagination-list">
-              {indexes.map((item) => {
-                if (isShowBtn(item)) {
+              {Array(...Array(pageCount.value)).map((value,key) => {
+                let index = key + 1;
+                if (isShowBtn(index)) {
                   return (
-                    <span onClick={() => handleClick(item, pageCount)}>
+                    <span onClick={() => handleClick(index)}>
                       <a
                         class={classnames("pagination-link", {
-                          "is-current": props.current === item,
+                          "is-current": props.current === index,
                         })}
                       >
-                        {item}
+                        {index}
                       </a>
                     </span>
                   );
-                } else if (isShowEllipsis(item)) {
+                } else if (isShowEllipsis(index)) {
                   return <span class="pagination-ellipsis">&hellip;</span>
                 }
               })}
@@ -115,14 +130,14 @@ export default defineComponent({
                 <input
                   class="pagination-jump__input input"
                   value={jumpPage.value}
-                  onInput={(event) => onInputChange(event)}
+                  onInput={(inputEvent) => onInputChange(inputEvent)}
                   type="text"
                 />
                 页
                 <a
                   class="pagination-next"
                   onClick={() =>
-                    handleClick(jumpPage.value as number, pageCount)
+                    handleClick(jumpPage.value as number)
                   }
                 >
                   GO
@@ -130,7 +145,6 @@ export default defineComponent({
               </div>
             </div>
           </div>
-        </>
       );
     };
   },

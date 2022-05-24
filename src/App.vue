@@ -61,6 +61,7 @@ export default {
       },
     ]);
     function sortChange (){
+      // 远程排序可在此触发
         info("触发排序事件");
     }
     return {

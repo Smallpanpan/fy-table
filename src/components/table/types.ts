@@ -26,8 +26,8 @@ export const tableHeadCellProps = {
 //表头cell props 
 export const tableBodyCellProps = {
   column: {
-    type: Array as PropType<ColumnType[]>,
-    default: () => [],
+    type: Object as PropType<ColumnType>,
+    default: () => ({}),
   },
   rowKey: {
     type: Function as PropType<(record: ColumnType) => string>,

@@ -22,13 +22,13 @@ export default defineComponent({
       key:'',
       title:''
     })
-    let tableData = {
-      current,
-      props,
-      columnItem,
-    }
     let updateSortItem = (items:ColumnType)=>{
       columnItem.value = items;
+    }
+    let tableData = {
+      props,
+      current,
+      columnItem,
     }
     // 提供给body使用
     provide(TABLE_PROPS, tableData)
