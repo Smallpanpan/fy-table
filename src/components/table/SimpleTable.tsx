@@ -4,7 +4,7 @@ import TableHead from "./TableHead"
 import TableBody from "./TableBody";
 import Pagination from "../pagination";
 import { TABLE_PROPS } from "./const"
-import { usePagination } from "../hooks/usePagination"
+import { usePageListener } from "../hooks/usePageListener"
 import { INFO } from "../../util/logger"
 export default defineComponent({
   name: "SimpleTable",
@@ -16,7 +16,7 @@ export default defineComponent({
   },
   setup(props: TableProps) {
     let { data, pageSize } = props
-    let { current, onPageChange } = usePagination()
+    let { current, onPageChange } = usePageListener()
     // 排序响应后触发的列
     let columnItem = ref({
       key:'',

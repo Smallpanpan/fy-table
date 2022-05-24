@@ -3,7 +3,7 @@
  */
 import { ref } from "vue"
 import { INFO } from "../../util/logger"
-export function usePagination() {
+export function usePageListener() {
   let current = ref(1);
   let onPageChange = (pageNumber: number) => {
     current.value = pageNumber;
