@@ -66,7 +66,16 @@ export default defineComponent({
     let isShowEllipsis = (index: number) => {
       return index === 2 || index === pageCount.value - 1;
     };
-    let handleClick = (pageNumber: number) => {
+    // 上一页
+    let prePage = ()=> {
+      changeCurrentPage(props.current + 1)
+    }
+    // 下一页
+    let nextPage = ()=> {
+      changeCurrentPage(props.current + 1)
+    }
+    // 修改页码
+    let changeCurrentPage = (pageNumber: number) => {
       INFO({msg: `页面修改:${pageNumber}`,event:'click', module:'pagination'});
       if (pageNumber > pageCount.value || pageNumber < 1) {
         return;
@@ -94,7 +103,7 @@ export default defineComponent({
               class={classnames("pagination-previous", {
                 "pagination-button-disabled": props.current === 1,
               })}
-              onClick={() => handleClick(props.current - 1)}
+              onClick={() => nextPage()}
             >
               上一页
             </a>
@@ -102,7 +111,7 @@ export default defineComponent({
               class={classnames("pagination-next", {
                 "pagination-button-disabled": props.current === pageCount.value,
               })}
-              onClick={() => handleClick(props.current + 1)}
+              onClick={() => nextPage()}
             >
               下一页
             </a>
@@ -111,7 +120,7 @@ export default defineComponent({
                 let index = key + 1;
                 if (isShowBtn(index)) {
                   return (
-                    <span onClick={() => handleClick(index)}>
+                    <span onClick={() => changeCurrentPage(index)}>
                       <a
                         class={classnames("pagination-link", {
                           "is-current": props.current === index,
@@ -137,7 +146,7 @@ export default defineComponent({
                 <a
                   class="pagination-next"
                   onClick={() =>
-                    handleClick(jumpPage.value as number)
+                    changeCurrentPage(jumpPage.value as number)
                   }
                 >
                   GO
