@@ -14,19 +14,6 @@ export default defineComponent({
             item.sort = item.sort === 'reversal' ? 'ordinal': 'reversal';
             emit('updateSortItem',item);
         }
-        //清除排序
-        let clearSort = () =>{
-            props.columns.map(item=>{
-                item.sort = 'disorder'
-            })
-            let item = {
-                key:'',
-                title:'',
-                sort:'disorder'
-            }
-            updateSortItem(item);
-        }
-
         return () => {
             return (
                 <thead>

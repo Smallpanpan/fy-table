@@ -1,7 +1,7 @@
 import { defineComponent, ref, Ref, PropType,computed } from "vue";
 import type { paginationData } from "./types";
 import classnames from "classnames";
-import { TRACE, INFO } from "../../util/logger"
+import { TRACE, INFO, WARN } from "../../util/logger"
 
 export default defineComponent({
   name: "Pagination",
@@ -78,6 +78,7 @@ export default defineComponent({
     let changeCurrentPage = (pageNumber: number) => {
       INFO({msg: `页面修改:${pageNumber}`,event:'click', module:'pagination'});
       if (pageNumber > pageCount.value || pageNumber < 1) {
+        WARN({msg: `非法输入:${pageNumber}`,event:'input', module:'pagination'})
         return;
       }
       emit("change", pageNumber);
@@ -103,7 +104,7 @@ export default defineComponent({
               class={classnames("pagination-previous", {
                 "pagination-button-disabled": props.current === 1,
               })}
-              onClick={() => nextPage()}
+              onClick={() => prePage()}
             >
               上一页
             </a>

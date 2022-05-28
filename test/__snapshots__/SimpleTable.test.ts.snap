@@ -1,16 +1,127 @@
 // Vitest Snapshot v1
 
-exports[`mount component 1`] = `
-"<table>
-  <thead>
-    <th>
-    <td></td>
-    </th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>hello table</td>
-    </tr>
-  </tbody>
-</table>"
+exports[`test table data and columns 1`] = `
+"<div>
+  <table class=\\"is-bordered is-hoverable is-fullwidth table\\">
+    <thead>
+      <tr>
+        <td>
+          <div><span title=\\"姓名\\">姓名</span><span class=\\"iconfont icon-shangjiantou\\" style=\\"display: none;\\"></span></div>
+        </td>
+        <td>
+          <div><span title=\\"年龄\\">年龄</span><span class=\\"iconfont icon-shangjiantou\\"></span></div>
+        </td>
+        <td>
+          <div><span title=\\"性别\\">性别</span><span class=\\"iconfont icon-shangjiantou\\" style=\\"display: none;\\"></span></div>
+        </td>
+        <td>
+          <div><span title=\\"分数\\">分数</span><span class=\\"iconfont icon-shangjiantou\\"></span></div>
+        </td>
+        <td>
+          <div><span title=\\"专业\\">专业</span><span class=\\"iconfont icon-shangjiantou\\" style=\\"display: none;\\"></span></div>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td title=\\"panqinghua 0\\">panqinghua 0</td>
+        <td title=\\"32\\">32</td>
+        <td title=\\"男\\">男</td>
+        <td title=\\"101\\">101</td>
+        <td>
+          <div>计算机</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 1\\">panqinghua 1</td>
+        <td title=\\"54\\">54</td>
+        <td title=\\"男\\">男</td>
+        <td title=\\"52\\">52</td>
+        <td>
+          <div>体育</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 2\\">panqinghua 2</td>
+        <td title=\\"28\\">28</td>
+        <td title=\\"女\\">女</td>
+        <td title=\\"88\\">88</td>
+        <td>
+          <div>计算机</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 3\\">panqinghua 3</td>
+        <td title=\\"66\\">66</td>
+        <td title=\\"女\\">女</td>
+        <td title=\\"83\\">83</td>
+        <td>
+          <div>体育</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 4\\">panqinghua 4</td>
+        <td title=\\"17\\">17</td>
+        <td title=\\"女\\">女</td>
+        <td title=\\"100\\">100</td>
+        <td>
+          <div>体育</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 5\\">panqinghua 5</td>
+        <td title=\\"38\\">38</td>
+        <td title=\\"女\\">女</td>
+        <td title=\\"71\\">71</td>
+        <td>
+          <div>计算机</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 6\\">panqinghua 6</td>
+        <td title=\\"24\\">24</td>
+        <td title=\\"男\\">男</td>
+        <td title=\\"113\\">113</td>
+        <td>
+          <div>计算机</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 7\\">panqinghua 7</td>
+        <td title=\\"67\\">67</td>
+        <td title=\\"男\\">男</td>
+        <td title=\\"55\\">55</td>
+        <td>
+          <div>计算机</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 8\\">panqinghua 8</td>
+        <td title=\\"51\\">51</td>
+        <td title=\\"男\\">男</td>
+        <td title=\\"87\\">87</td>
+        <td>
+          <div>计算机</div>
+        </td>
+      </tr>
+      <tr>
+        <td title=\\"panqinghua 9\\">panqinghua 9</td>
+        <td title=\\"41\\">41</td>
+        <td title=\\"女\\">女</td>
+        <td title=\\"74\\">74</td>
+        <td>
+          <div>体育</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class=\\"pagination is-centered\\"><a class=\\"pagination-previous pagination-button-disabled\\">上一页</a><a class=\\"pagination-next\\">下一页</a>
+    <div class=\\"pagination-list\\"><span><a class=\\"pagination-link is-current\\">1</a></span><span><a class=\\"pagination-link\\">2</a></span><span><a class=\\"pagination-link\\">3</a></span><span><a class=\\"pagination-link\\">4</a></span><span><a class=\\"pagination-link\\">5</a></span>
+      <!---->
+      <!---->
+      <!----><span class=\\"pagination-ellipsis\\">…</span><span><a class=\\"pagination-link\\">10</a></span>
+      <div class=\\"pagination pagination-jump\\">跳转至<input class=\\"pagination-jump__input input\\" type=\\"text\\">页<a class=\\"pagination-next\\">GO</a></div>
+    </div>
+  </div>
+</div>"
 `;

@@ -37,12 +37,11 @@ function getNowTime() {
 export function TRACE(msg) {
     LOG(console.trace, msg);
 }
-export function DEBUG(msg) {
-    LOG(console.debug, msg);
-}
+
 export function INFO(msg) {
     LOG(console.info, msg);
 }
+
 export function WARN(msg) {
     LOG(console.warn, msg);
 }

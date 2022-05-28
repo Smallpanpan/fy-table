@@ -7,10 +7,6 @@ export default defineComponent({
     name: "TableBody",
     props: tableBodyCellProps,
     setup(props,{emit}) {
-        let rowOnClick =  (item) => {
-            TRACE({msg: '点击行触发',event:'click'});
-            emit('rowOnClick',item);
-        }
         let {row, column} = props;
         return () => {
             return (
