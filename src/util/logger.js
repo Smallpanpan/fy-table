@@ -34,17 +34,22 @@ function getNowTime() {
       logFn.call(null,`[${time}]-[${module}]-${obj}--[${event}]-[${msg}]--[${suggest}]`);
     }
 }
+
+// 调试日志输出
 export function TRACE(msg) {
     LOG(console.trace, msg);
 }
 
+// 普通日志输出
 export function INFO(msg) {
     LOG(console.info, msg);
 }
 
+// 告警日志输出
 export function WARN(msg) {
     LOG(console.warn, msg);
 }
-export function error(msg) {
-    LOG(console.error, msg);
-}
+// 暂未使用
+// export function error(msg) {
+//     LOG(console.error, msg);
+// }

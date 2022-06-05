@@ -51,11 +51,11 @@ test("test table sort", async () => {
   }
 
   // 点击顺序
-  // await wrapper.findAll('.icon-shangjiantou')[1].trigger('click')
-  // const bodyCells = wrapper.findAllComponents(TableBodyCell);
-  // console.log('1111111',bodyCells[0].html())
-  // for(let index in ascList) {
-  //   expect(bodyCells[0].findAll('tr')[index].html()).toContain(ascList[index]);
-  // }
+  await wrapper.findAll('.icon-shangjiantou')[1].trigger('click')
+  const bodyCells = wrapper.findAllComponents(TableBodyCell);
+  console.log('1111111',bodyCells[0].html())
+  for(let index in ascList) {
+    expect(bodyCells[0].findAll('tr')[index].html()).toContain(ascList[index]);
+  }
 
 });

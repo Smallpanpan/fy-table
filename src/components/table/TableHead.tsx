@@ -8,11 +8,15 @@ export default defineComponent({
     props: tableHeadProps,
     emits: ["updateSortItem"],
     setup(props: TableHeadProps,{emit}) {
-        //排序需要重新在hook引入
         let updateSortItem = (item: ColumnType)=>{
-            INFO({msg:'点击触发'});
-            item.sort = item.sort === 'reversal' ? 'ordinal': 'reversal';
-            emit('updateSortItem',item);
+            let sort = item.sort === 'reversal' ? 'ordinal': 'reversal';
+            item.sort = sort;
+            let sortItem = {
+                key: item.key,
+                sort
+            }
+            INFO({msg:`排序点击触发--${sortItem.sort}`});
+            emit('updateSortItem',sortItem);
         }
         return () => {
             return (

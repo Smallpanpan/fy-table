@@ -1,8 +1,8 @@
 import { defineComponent, ref, Ref, PropType,computed } from "vue";
 import type { paginationData } from "./types";
 import classnames from "classnames";
-import { TRACE, INFO, WARN } from "../../util/logger"
-
+import { INFO, WARN } from "../../util/logger"
+import { usePage } from "../hooks/usePage"
 export default defineComponent({
   name: "Pagination",
   props: {
@@ -29,7 +29,7 @@ export default defineComponent({
   },
   emits: ["change"],
   setup(props, { emit }) {
-    let jumpPage: Ref<string | number> = ref("");
+    let { jumpPage, onInputChange } = usePage()
     // 总页数
     let pageCount = computed(()=>{
       return Math.ceil(props.total / props.pageSize);
@@ -84,18 +84,7 @@ export default defineComponent({
       emit("change", pageNumber);
     };
 
-    // 页面输入校验
-    let onInputChange = (inputEvent: Event) => {
-      TRACE({msg: `页码输入:${inputEvent}`,event:'input'});
-      (inputEvent.target as HTMLInputElement).value = (
-        inputEvent.target as HTMLInputElement
-      ).value.replace(/[^0-9]/g, "");
-      if ((inputEvent.target as HTMLInputElement).value !== "") {
-        jumpPage.value = Number((inputEvent.target as HTMLInputElement).value);
-      } else {
-        jumpPage.value = "";
-      }
-    };
+
 
     return () => {
       return (

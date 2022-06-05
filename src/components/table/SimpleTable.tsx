@@ -1,11 +1,11 @@
-import { defineComponent, provide,ref } from "vue";
+import { defineComponent, provide,watch } from "vue";
 import { type TableProps, tableProps,ColumnType } from "./types";
 import TableHead from "./TableHead"
 import TableBody from "./TableBody";
 import Pagination from "../pagination";
 import { TABLE_PROPS } from "./const"
 import { usePageListener } from "../hooks/usePageListener"
-import { INFO } from "../../util/logger"
+import { useTableSortList } from "../hooks/useTableSortList"
 export default defineComponent({
   name: "SimpleTable",
   props: tableProps,
@@ -17,19 +17,13 @@ export default defineComponent({
   setup(props: TableProps) {
     let { data, pageSize } = props
     let { current, onPageChange } = usePageListener()
-    // 排序响应后触发的列
-    let columnItem = ref({
-      key:'',
-      title:''
-    })
-    let updateSortItem = (items:ColumnType)=>{
-      columnItem.value = items;
-    }
+    let { columnItem, updateSortItem } = useTableSortList()
     let tableData = {
       props,
       current,
       columnItem,
     }
+
     // 提供给body使用
     provide(TABLE_PROPS, tableData)
     return () => {

@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import { ref, Ref } from "vue";
+import { INFO } from "./util/logger.js";
 import FyTable from "./components/table/index";
 interface TableSource {
   key: number;
@@ -62,7 +63,7 @@ export default {
     ]);
     function sortChange (){
       // 远程排序可在此触发
-        info("触发排序事件");
+        INFO({msg:`触发远程排序事件`});
     }
     return {
       data,
